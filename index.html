@@ -1175,7 +1175,7 @@
 
 <!-- NAV -->
 <nav>
-  <img src="img_1.png" class="logo" alt="Su Studio">
+  <img src="logo_color.png" class="logo" alt="Su Studio">
   <ul class="nav-links">
     <li><a href="#events">Events</a></li>
     <li><a href="#artist">Artist</a></li>
@@ -1216,28 +1216,28 @@
   <p class="section-label">What we do</p>
   <div class="what-grid">
     <div class="what-item">
-      <div class="what-item-placeholder">Private Events</div>
+      <img src="events-private.jpg" alt="Private Events" onerror="this.style.display='none'">
       <div class="what-item-overlay">
         <h3 class="what-item-title">Private Events</h3>
         <p class="what-item-text">Private dinners, chef nights, celebrations, company events.</p>
       </div>
     </div>
     <div class="what-item">
-      <div class="what-item-placeholder">Open Nights</div>
+      <img src="events-open.jpg" alt="Open Nights" onerror="this.style.display='none'">
       <div class="what-item-overlay">
         <h3 class="what-item-title">Open Nights</h3>
         <p class="what-item-text">Film clubs, listening sessions, life drawing and experimental evenings.</p>
       </div>
     </div>
     <div class="what-item">
-      <div class="what-item-placeholder">Photoshoots & Workshops</div>
+      <img src="events-photo.jpg" alt="Photoshoots" onerror="this.style.display='none'">
       <div class="what-item-overlay">
         <h3 class="what-item-title">Photoshoots & Workshops</h3>
         <p class="what-item-text">Raw industrial space for photography, video and creative workshops.</p>
       </div>
     </div>
     <div class="what-item">
-      <div class="what-item-placeholder">Productions</div>
+      <img src="events-productions.jpg" alt="Productions" onerror="this.style.display='none'">
       <div class="what-item-overlay">
         <h3 class="what-item-title">Productions & Elsewhere</h3>
         <p class="what-item-text">Art direction and event design outside the studio. We go to you.</p>
@@ -1300,7 +1300,7 @@
       <a href="#" class="artist-link">Meet this month&#39;s artist →</a>
     </div>
     <div class="artist-image">
-      <div class="artist-image-placeholder">Add artist photo</div>
+      <img src="artist-month.jpg" alt="Artist of the month" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<div class=artist-image-placeholder>Add artist photo</div>'">
     </div>
   </div>
   <div class="artist-exhibit-bar">
@@ -1348,7 +1348,7 @@
   // CALENDAR
   const EVENTS = [
     {
-      day: 30, month: 6, year: 2025, // July = month 6 (0-indexed)
+      day: 30, month: 6, year: 2026, // July = month 6 (0-indexed)
       name: 'Mishte — Su × Shaked',
       desc: 'לא ארוחת ערב רגילה. משתה של קיץ על טהרת גלם מקומי, דגים וכל מה שטוב. שקד ביטון יוצא מהשדה אל המטבח שלנו לבשל לכם בפעם הראשונה.',
       link: 'https://sale-page.greeninvoice.co.il/88ka29'
@@ -1361,7 +1361,7 @@
   const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
-  let currentDate = new Date(2025, 6, 1); // July 2025
+  let currentDate = new Date(2026, 6, 1); // July 2025
 
   function renderCalendar() {
     const year = currentDate.getFullYear();
@@ -1486,7 +1486,7 @@
 <footer>
   <div class="footer-top">
     <div>
-      <img src="img_1.png" class="logo-footer" alt="Su Studio">
+      <img src="logo_color.png" class="logo-footer" alt="Su Studio">
       <p>HaMifal 1, Tel Aviv<br>House of Art & Experiences<br><br>Su.Studio.tlv@gmail.com</p>
     </div>
     <div>
@@ -1499,7 +1499,7 @@
     <div>
       <p class="footer-col-title">Get in touch</p>
       <a href="mailto:Su.Studio.tlv@gmail.com">Su.Studio.tlv@gmail.com</a>
-      <a href="https://wa.me/972XXXXXXXXX" target="_blank">WhatsApp</a>
+      <a href="https://wa.me/972526777813" target="_blank">WhatsApp</a>
       <a href="#ideas">Share an idea</a>
     </div>
   </div>
@@ -1513,7 +1513,7 @@
 <button class="talk-btn" onclick="toggleTalk()">Talk to us</button>
 <div class="talk-popup" id="talk-popup">
   <p class="talk-popup-title">Get in touch</p>
-  <a href="https://wa.me/972XXXXXXXXX" target="_blank" class="talk-option">
+  <a href="https://wa.me/972526777813" target="_blank" class="talk-option">
     <span class="talk-option-icon">💬</span> WhatsApp
   </a>
   <a href="mailto:Su.Studio.tlv@gmail.com" class="talk-option">
