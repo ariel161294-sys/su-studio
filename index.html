@@ -1,0 +1,1711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Su Studio — House of Art & Experiences</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bordeaux: #6B1A1A;
+      --teal: #3D6B6B;
+      --cream: #F5F0E8;
+      --offwhite: #FAFAF8;
+      --black: #111111;
+      --grey: #888;
+      --text: #1A1818;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--offwhite);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(250,250,248,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    nav img.logo {
+      height: 52px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--bordeaux); }
+
+    /* HERO */
+    .hero {
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-color: #1a1a1a;
+      will-change: transform;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 1;
+    }
+
+    /* Logo + text as one unit that parallaxes */
+    .hero-parallax-group {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      will-change: transform;
+    }
+
+    .hero-logo-wrap {
+      margin-bottom: 24px;
+    }
+
+    .hero-logo-wrap img {
+      height: clamp(160px, 32vw, 420px);
+      display: block;
+      filter: none;
+    }
+
+    .hero-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(11px, 1.3vw, 15px);
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.4s forwards;
+    }
+
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 300;
+      font-style: italic;
+      color: white;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.7s forwards;
+      line-height: 1.2;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      padding: 14px 36px;
+      border: 1px solid rgba(255,255,255,0.6);
+      color: white;
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+      opacity: 0;
+      animation: fadeUp 1s ease 1s forwards;
+    }
+
+    .hero-cta:hover {
+      background: white;
+      color: var(--black);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      z-index: 3;
+    }
+
+    .hero-scroll-line {
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.4);
+      animation: scrollLine 1.8s ease-in-out infinite;
+    }
+
+    @keyframes scrollLine {
+      0% { transform: scaleY(0); transform-origin: top; }
+      50% { transform: scaleY(1); transform-origin: top; }
+      51% { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+        .section-label {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 48px;
+      text-align: center;
+    }
+
+        /* WHAT WE DO */
+    .what {
+      text-align: center;
+      padding: 100px 40px;
+      background: var(--cream);
+    }
+
+    .what-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .what-item {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      cursor: pointer;
+    }
+
+    .what-item-placeholder {
+      width: 100%;
+      height: 100%;
+      background: #d5cfc6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #aaa;
+      letter-spacing: 0.1em;
+    }
+
+    .what-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .what-item:hover img { transform: scale(1.05); }
+
+    .what-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0);
+      transition: background 0.4s;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px;
+    }
+
+    .what-item:hover .what-item-overlay {
+      background: rgba(0,0,0,0.55);
+    }
+
+    .what-item-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-style: italic;
+      color: white;
+      margin-bottom: 6px;
+      transform: translateY(6px);
+      transition: transform 0.3s;
+    }
+
+    .what-item:hover .what-item-title { transform: translateY(0); }
+
+    .what-item-text {
+      font-size: 12px;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.5;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.3s 0.05s, transform 0.3s 0.05s;
+    }
+
+    .what-item:hover .what-item-text { opacity: 1; transform: translateY(0); }
+
+        /* EVENTS */
+    .events {
+      padding: 100px 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .events-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 48px;
+    }
+
+    .events-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 300;
+    }
+
+    .events-all {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .events-all:hover { opacity: 0.5; }
+
+    .event-item {
+      display: grid;
+      grid-template-columns: 72px 1fr 40px;
+      gap: 28px;
+      align-items: center;
+      padding: 28px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      text-decoration: none;
+      color: inherit;
+      transition: padding-left 0.3s ease;
+      cursor: pointer;
+    }
+
+    .event-item:hover { padding-left: 10px; }
+
+    .event-date-box {
+      text-align: center;
+    }
+
+    .event-date-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 40px;
+      font-weight: 300;
+      color: var(--bordeaux);
+      line-height: 1;
+    }
+
+    .event-date-month {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #aaa;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .event-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-style: italic;
+      margin-bottom: 5px;
+    }
+
+    .event-desc {
+      font-size: 13px;
+      color: #888;
+      line-height: 1.5;
+    }
+
+    .event-arrow {
+      font-size: 18px;
+      color: var(--bordeaux);
+      transition: transform 0.3s;
+      text-align: right;
+    }
+
+    .event-item:hover .event-arrow { transform: translateX(5px); }
+
+    .event-tbd .event-date-num {
+      font-size: 14px;
+      color: #ccc;
+      margin-top: 6px;
+    }
+
+    /* ARTIST OF THE MONTH */
+    .artist {
+      padding: 100px 40px;
+      background: var(--black);
+      color: white;
+    }
+
+    .artist-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .artist-label {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 20px;
+    }
+
+    .artist-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .artist-bio {
+      font-size: 15px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    .artist-link {
+      display: inline-block;
+      padding: 13px 28px;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+
+    .artist-link:hover {
+      background: white;
+      color: var(--black);
+    }
+
+    .artist-image {
+      aspect-ratio: 3/4;
+      background: #222;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .artist-image-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: #444;
+      letter-spacing: 0.1em;
+    }
+
+    /* IDEAS MACHINE */
+    .ideas {
+      padding: 100px 40px;
+      background: var(--cream);
+      text-align: center;
+    }
+
+    .ideas-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 300;
+      font-style: italic;
+      margin-bottom: 12px;
+    }
+
+    .ideas-sub {
+      font-size: 14px;
+      color: var(--grey);
+      margin-bottom: 48px;
+    }
+
+    .ideas-machine {
+      max-width: 360px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* The booth image wrapper */
+    .booth-wrap {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .booth-img {
+      width: 100%;
+      display: block;
+      border-radius: 4px;
+    }
+
+    /* "IDEAS" sign overlay replacing "PHOTOS" */
+    .booth-sign {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 13%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      border-radius: 4px 4px 0 0;
+    }
+
+    .booth-sign-text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(22px, 5vw, 38px);
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--black);
+      text-transform: uppercase;
+    }
+
+    /* Slot at the bottom of the machine where strip comes out */
+    .booth-slot-overlay {
+      position: absolute;
+      bottom: 22%;
+      left: 12%;
+      width: 15%;
+      height: 6%;
+      background: rgba(0,0,0,0);
+      border-radius: 2px;
+      overflow: hidden;
+      transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
+      transform-origin: center;
+    }
+
+    /* Zoom state — zooms to the slot */
+    .booth-wrap.zooming {
+      animation: boothZoom 1.8s ease forwards;
+    }
+
+    @keyframes boothZoom {
+      0%   { transform: scale(1); }
+      40%  { transform: scale(2.8) translate(-18%, 22%); }
+      70%  { transform: scale(2.8) translate(-18%, 22%); }
+      100% { transform: scale(1); }
+    }
+
+    /* Strip coming out of slot */
+    .strip-out {
+      position: absolute;
+      bottom: 16%;
+      left: 9%;
+      width: 20%;
+      background: white;
+      border: 1px solid #ddd;
+      padding: 5px 4px;
+      font-size: 8px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: #333;
+      text-align: center;
+      line-height: 1.4;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: opacity 0.4s, transform 0.6s;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .strip-out.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Thank you message overlay */
+    .booth-thanks {
+      position: absolute;
+      inset: 0;
+      background: rgba(17,17,17,0.85);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s;
+      border-radius: 4px;
+      padding: 24px;
+    }
+
+    .booth-thanks.show {
+      opacity: 1;
+    }
+
+    .booth-thanks-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-style: italic;
+      color: white;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .booth-thanks-sub {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.05em;
+    }
+
+    /* Input below the machine */
+    .booth-input-wrap {
+      margin-top: 20px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .booth-input {
+      flex: 1;
+      background: white;
+      border: 1px solid #d0cac0;
+      color: var(--text);
+      padding: 13px 16px;
+      font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
+      outline: none;
+    }
+
+    .booth-input::placeholder { color: #bbb; }
+    .booth-input:focus { border-color: var(--teal); }
+
+    .booth-submit {
+      background: var(--black);
+      color: white;
+      border: none;
+      padding: 13px 20px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: 'DM Sans', sans-serif;
+      letter-spacing: 0.05em;
+    }
+
+    .booth-submit:hover { background: var(--bordeaux); }
+
+    /* INSTAGRAM */
+    .instagram {
+      padding: 80px 40px;
+      text-align: center;
+    }
+
+    .instagram-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 300;
+      font-style: italic;
+      margin-bottom: 8px;
+    }
+
+    .instagram-handle {
+      font-size: 12px;
+      color: var(--grey);
+      letter-spacing: 0.1em;
+      margin-bottom: 40px;
+    }
+
+    .behold-wrap {
+      max-width: 900px;
+      margin: 0 auto 32px;
+      width: 100%;
+    }
+
+    .instagram-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      max-width: 520px;
+      margin: 0 auto 32px;
+    }
+
+    .instagram-post {
+      aspect-ratio: 1;
+      background: var(--cream);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .instagram-post img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+
+    .instagram-post:hover img { transform: scale(1.06); }
+
+    .instagram-placeholder {
+      width: 100%; height: 100%;
+      background: #e8e3da;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .instagram-link {
+      display: inline-block;
+      padding: 14px 36px;
+      border: 1px solid var(--black);
+      color: var(--black);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+
+    .instagram-link:hover {
+      background: var(--black);
+      color: white;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--black);
+      color: white;
+      padding: 70px 40px 40px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
+    }
+
+    footer img.logo-footer {
+      height: 44px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    footer p { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.8; }
+
+    .footer-col-title {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 20px;
+    }
+
+    footer a {
+      display: block;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 13px;
+      margin-bottom: 10px;
+      transition: color 0.2s;
+    }
+
+    footer a:hover { color: white; }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: rgba(255,255,255,0.25);
+    }
+
+    /* FLOATING TALK */
+    .talk-btn {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 300;
+      background: var(--bordeaux);
+      color: white;
+      padding: 20px 40px;
+      font-size: 15px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 2px solid var(--bordeaux);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+    }
+
+    .talk-btn:hover {
+      background: white;
+      color: var(--bordeaux);
+      border-color: var(--bordeaux);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(107,26,26,0.25);
+    }
+
+    .talk-popup {
+      position: fixed;
+      bottom: 90px;
+      right: 32px;
+      z-index: 300;
+      background: white;
+      padding: 28px;
+      width: 260px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.18);
+      display: none;
+      border-top: 3px solid var(--bordeaux);
+    }
+
+    .talk-popup.open { display: block; animation: popIn 0.2s ease; }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .talk-popup-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-style: italic;
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+
+    .talk-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 0;
+      border-bottom: 1px solid #f0f0f0;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 13px;
+      transition: color 0.2s, padding-left 0.2s;
+    }
+
+    .talk-option:hover { color: var(--bordeaux); padding-left: 4px; }
+    .talk-option:last-child { border-bottom: none; }
+    .talk-option-icon { font-size: 15px; width: 20px; text-align: center; }
+
+    .community-sep {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    .community-label {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #bbb;
+      margin-bottom: 12px;
+    }
+
+
+    .community-btn {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 14px 36px;
+      background: var(--bordeaux);
+      color: white;
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+
+    .community-btn:hover {
+      background: white;
+      color: var(--bordeaux);
+      outline: 2px solid var(--bordeaux);
+    }
+
+    .artist-exhibit-bar {
+      max-width: 1100px;
+      margin: 40px auto 0;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      text-align: left;
+    }
+
+    .artist-exhibit-link {
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    .artist-exhibit-link:hover {
+      color: white;
+    }
+
+
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      color: var(--grey);
+      font-family: 'DM Sans', sans-serif;
+      padding: 4px 6px;
+      transition: color 0.2s;
+    }
+
+    .lang-btn.active { color: var(--bordeaux); font-weight: 500; }
+    .lang-btn:hover { color: var(--bordeaux); }
+
+    [dir="rtl"] { direction: rtl; }
+    [dir="rtl"] nav { flex-direction: row-reverse; }
+    [dir="rtl"] .nav-links { flex-direction: row-reverse; }
+    [dir="rtl"] .events-header { flex-direction: row-reverse; }
+    [dir="rtl"] .footer-top { direction: rtl; }
+
+    /* FADE IN */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 24px 60px; }
+      .hero-logo-wrap img { height: 80px; }
+      .what, .events, .artist, .ideas, .instagram { padding: 60px 24px; }
+      .what-grid { grid-template-columns: 1fr; gap: 16px; }
+      .what-item { aspect-ratio: 4/3; }
+      .artist-inner { grid-template-columns: 1fr; gap: 40px; }
+      .artist-image { aspect-ratio: 4/3; }
+      footer { padding: 50px 24px 30px; }
+      .footer-top { grid-template-columns: 1fr; gap: 36px; }
+      .talk-btn { bottom: 20px; right: 20px; padding: 13px 20px; }
+      .talk-popup { right: 20px; bottom: 75px; width: 240px; }
+      .behold-wrap {
+      max-width: 900px;
+      margin: 0 auto 32px;
+      width: 100%;
+    }
+
+    .instagram-grid { max-width: 100%; }
+    }
+
+    /* CALENDAR */
+    .calendar-section {
+      padding: 80px 40px;
+      background: var(--offwhite);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+
+    .calendar-month-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 300;
+      font-style: italic;
+    }
+
+    .calendar-nav {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .cal-nav-btn {
+      background: none;
+      border: 1px solid #ddd;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cal-nav-btn:hover {
+      border-color: var(--bordeaux);
+      color: var(--bordeaux);
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      border-left: 1px solid #e0dcd6;
+      border-top: 1px solid #e0dcd6;
+    }
+
+    .cal-day-header {
+      padding: 10px 0;
+      text-align: center;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #aaa;
+      border-right: 1px solid #e0dcd6;
+      border-bottom: 1px solid #e0dcd6;
+      background: var(--offwhite);
+    }
+
+    .cal-cell {
+      border-right: 1px solid #e0dcd6;
+      border-bottom: 1px solid #e0dcd6;
+      min-height: 90px;
+      padding: 8px;
+      position: relative;
+      background: white;
+      transition: background 0.2s;
+      cursor: default;
+    }
+
+    .cal-cell.empty {
+      background: var(--offwhite);
+    }
+
+    .cal-cell.has-event {
+      cursor: pointer;
+    }
+
+    .cal-cell.has-event:hover {
+      background: #faf7f3;
+    }
+
+    .cal-date {
+      font-size: 12px;
+      color: #bbb;
+      font-family: 'DM Sans', sans-serif;
+      margin-bottom: 4px;
+    }
+
+    .cal-cell.today .cal-date {
+      color: var(--bordeaux);
+      font-weight: 600;
+    }
+
+    .cal-event-label {
+      font-family: 'Caveat', cursive;
+      font-size: 15px;
+      color: var(--bordeaux);
+      line-height: 1.3;
+      transform-origin: bottom left;
+      transition: font-size 0.2s ease, color 0.2s;
+    }
+
+    .cal-cell.has-event:hover .cal-event-label {
+      font-size: 18px;
+      color: #8a2020;
+    }
+
+    .cal-star {
+      font-family: 'Caveat', cursive;
+      font-size: 20px;
+      color: #d5cfc6;
+      position: absolute;
+      bottom: 6px;
+      right: 8px;
+      transition: color 0.2s;
+      pointer-events: none;
+    }
+
+    .cal-cell:hover .cal-star {
+      color: #bbb;
+    }
+
+    /* EVENT MODAL */
+    .event-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 500;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .event-modal-overlay.open {
+      display: flex;
+    }
+
+    .event-modal {
+      background: white;
+      max-width: 560px;
+      width: 100%;
+      padding: 48px;
+      position: relative;
+      animation: modalIn 0.3s ease;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .event-modal-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #aaa;
+      transition: color 0.2s;
+    }
+
+    .event-modal-close:hover { color: var(--text); }
+
+    .event-modal-date {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 12px;
+    }
+
+    .event-modal-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-style: italic;
+      font-weight: 300;
+      margin-bottom: 20px;
+    }
+
+    .event-modal-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      margin-bottom: 20px;
+      background: var(--cream);
+      display: none;
+    }
+
+    .event-modal-desc {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+
+    .event-modal-btn {
+      display: inline-block;
+      padding: 14px 32px;
+      background: var(--bordeaux);
+      color: white;
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+
+    .event-modal-btn:hover {
+      background: #8a2020;
+    }
+
+    @media (max-width: 768px) {
+      .calendar-section { padding: 60px 16px; }
+      .cal-cell { min-height: 60px; padding: 4px; }
+      .cal-event-label { font-size: 12px; }
+      .event-modal { padding: 32px 24px; }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <img src="img_1.png" class="logo" alt="Su Studio">
+  <ul class="nav-links">
+    <li><a href="#events">Events</a></li>
+    <li><a href="#artist">Artist</a></li>
+    <li><a href="#instagram">Instagram</a></li>
+    <li><a href="#ideas">Ideas</a></li>
+  </ul>
+  <div class="lang-switcher">
+    <button onclick="setLang('en')" class="lang-btn active" id="lang-en">EN</button>
+    <span style="color:#ccc;">|</span>
+    <button onclick="setLang('he')" class="lang-btn" id="lang-he">עב</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <!-- Background image/video layer -->
+  <div id="hero-bg-img" class="hero-bg" style="background-image:url(img_3.jpg)"></div>
+  <div class="hero-overlay"></div>
+
+  <!-- Logo + text move together on parallax -->
+  <div class="hero-parallax-group" id="hero-parallax">
+    <div class="hero-logo-wrap">
+      <img src="img_1.png" alt="Su Studio">
+    </div>
+    <p class="hero-label">House of Art &amp; Experiences</p>
+    <p class="hero-sub">We curate moments. Of all kinds.</p>
+    <a href="#events" class="hero-cta">See what's coming</a>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- WHAT WE DO -->
+<section class="what fade-in" id="what">
+  <p class="section-label">What we do</p>
+  <div class="what-grid">
+    <div class="what-item">
+      <div class="what-item-placeholder">Private Events</div>
+      <div class="what-item-overlay">
+        <h3 class="what-item-title">Private Events</h3>
+        <p class="what-item-text">Private dinners, chef nights, celebrations, company events.</p>
+      </div>
+    </div>
+    <div class="what-item">
+      <div class="what-item-placeholder">Open Nights</div>
+      <div class="what-item-overlay">
+        <h3 class="what-item-title">Open Nights</h3>
+        <p class="what-item-text">Film clubs, listening sessions, life drawing and experimental evenings.</p>
+      </div>
+    </div>
+    <div class="what-item">
+      <div class="what-item-placeholder">Photoshoots & Workshops</div>
+      <div class="what-item-overlay">
+        <h3 class="what-item-title">Photoshoots & Workshops</h3>
+        <p class="what-item-text">Raw industrial space for photography, video and creative workshops.</p>
+      </div>
+    </div>
+    <div class="what-item">
+      <div class="what-item-placeholder">Productions</div>
+      <div class="what-item-overlay">
+        <h3 class="what-item-title">Productions & Elsewhere</h3>
+        <p class="what-item-text">Art direction and event design outside the studio. We go to you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section class="events fade-in" id="events">
+  <div class="events-header">
+    <h2 class="events-title">What's coming</h2>
+    <a href="#calendar" class="events-all">All events →</a>
+  </div>
+
+  <a href="https://sale-page.greeninvoice.co.il/88ka29" class="event-item" target="_blank">
+    <div class="event-date-box">
+      <div class="event-date-num">30</div>
+      <div class="event-date-month">July</div>
+    </div>
+    <div>
+      <div class="event-name">Mishte — Su × Shaked</div>
+      <div class="event-desc">לא ארוחת ערב רגילה. משתה של קיץ על טהרת גלם מקומי, דגים וכל מה שטוב.</div>
+    </div>
+    <div class="event-arrow">→</div>
+  </a>
+
+  <div class="event-item event-tbd">
+    <div class="event-date-box">
+      <div class="event-date-num" style="font-size:13px;color:#ccc;margin-top:8px;">TBD</div>
+      <div class="event-date-month">Soon</div>
+    </div>
+    <div>
+      <div class="event-name">Su — 1 Year Anniversary</div>
+      <div class="event-desc">WTF. One year. Something is coming.</div>
+    </div>
+    <div class="event-arrow" style="color:#ddd;">→</div>
+  </div>
+
+  <div class="event-item event-tbd">
+    <div class="event-date-box">
+      <div class="event-date-num" style="font-size:13px;color:#ccc;margin-top:8px;">TBD</div>
+      <div class="event-date-month">Soon</div>
+    </div>
+    <div>
+      <div class="event-name">Film Club</div>
+      <div class="event-desc">Cinema, conversation and something good to drink.</div>
+    </div>
+    <div class="event-arrow" style="color:#ddd;">→</div>
+  </div>
+</section>
+
+<!-- ARTIST OF THE MONTH -->
+<section class="artist fade-in" id="artist">
+  <div class="artist-inner">
+    <div>
+      <p class="artist-label">Artist of the month</p>
+      <h2 class="artist-name">The walls<br>have something<br>to say.</h2>
+      <p class="artist-bio">Su is an art gallery. Our walls are always exhibiting local artists of all mediums. Every month we feature an artist whose work shapes the atmosphere of the space — on the walls, in the air, and in the conversations that follow.</p>
+      <a href="#" class="artist-link">Meet this month&#39;s artist →</a>
+    </div>
+    <div class="artist-image">
+      <div class="artist-image-placeholder">Add artist photo</div>
+    </div>
+  </div>
+  <div class="artist-exhibit-bar">
+    <a href="mailto:Su.Studio.tlv@gmail.com" class="artist-exhibit-link">Wanna exhibit your art on our walls or platform? Get in touch →</a>
+  </div>
+</section>
+
+<!-- IDEAS MACHINE -->
+<section class="ideas fade-in" id="ideas">
+  <div class="ideas-machine">
+    <div class="booth-wrap" id="booth-wrap">
+      <!-- Machine image -->
+      <img src="img_2.png" class="booth-img" alt="Ideas Machine">
+      <!-- Strip coming out -->
+      <div class="strip-out" id="strip-out"></div>
+      <!-- Thank you overlay -->
+      <div class="booth-thanks" id="booth-thanks">
+        <p class="booth-thanks-text">thanks for being a part<br>of something big</p>
+        <p class="booth-thanks-sub">(for us)</p>
+      </div>
+    </div>
+    <div class="booth-input-wrap">
+      <input type="text" class="booth-input" id="idea-input" placeholder="A jazz night, a pottery class, a silent disco...">
+      <button class="booth-submit" onclick="submitIdea()">Send →</button>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- INSTAGRAM -->
+<section class="instagram fade-in" id="instagram">
+  <p class="section-label">Follow along</p>
+  <h2 class="instagram-title">The ongoing scene</h2>
+  <p class="instagram-handle">@su____studio</p>
+  <div class="behold-wrap">
+    <behold-widget feed-id="FIZBWcLBURLmHLMPrTG7"></behold-widget>
+    <script>
+      (() => {
+        const d=document,s=d.createElement("script");s.type="module";
+        s.src="https://w.behold.so/widget.js";d.head.append(s);
+      })();
+    
+
+  // CALENDAR
+  const EVENTS = [
+    {
+      day: 30, month: 6, year: 2025, // July = month 6 (0-indexed)
+      name: 'Mishte — Su × Shaked',
+      desc: 'לא ארוחת ערב רגילה. משתה של קיץ על טהרת גלם מקומי, דגים וכל מה שטוב. שקד ביטון יוצא מהשדה אל המטבח שלנו לבשל לכם בפעם הראשונה.',
+      link: 'https://sale-page.greeninvoice.co.il/88ka29'
+    },
+  ];
+
+  // Star positions - random but seeded per cell
+  const STAR_CELLS = [3, 7, 11, 15, 19, 23, 28]; // day numbers that get stars
+
+  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+  let currentDate = new Date(2025, 6, 1); // July 2025
+
+  function renderCalendar() {
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    document.getElementById('cal-month-title').textContent = MONTHS[month] + ' ' + year;
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const today = new Date();
+
+    const grid = document.getElementById('calendar-grid');
+    grid.innerHTML = '';
+
+    // Day headers
+    DAYS.forEach(d => {
+      const h = document.createElement('div');
+      h.className = 'cal-day-header';
+      h.textContent = d;
+      grid.appendChild(h);
+    });
+
+    // Empty cells before first day
+    for (let i = 0; i < firstDay; i++) {
+      const c = document.createElement('div');
+      c.className = 'cal-cell empty';
+      grid.appendChild(c);
+    }
+
+    // Day cells
+    for (let d = 1; d <= daysInMonth; d++) {
+      const cell = document.createElement('div');
+      const event = EVENTS.find(e => e.day === d && e.month === month && e.year === year);
+      const isToday = today.getDate() === d && today.getMonth() === month && today.getFullYear() === year;
+
+      cell.className = 'cal-cell' + (event ? ' has-event' : '') + (isToday ? ' today' : '');
+
+      const dateEl = document.createElement('div');
+      dateEl.className = 'cal-date';
+      dateEl.textContent = d;
+      cell.appendChild(dateEl);
+
+      if (event) {
+        const label = document.createElement('div');
+        label.className = 'cal-event-label';
+        label.textContent = event.name;
+        cell.appendChild(label);
+        cell.addEventListener('click', () => openModal(event));
+      } else if (STAR_CELLS.includes(d)) {
+        const star = document.createElement('div');
+        star.className = 'cal-star';
+        star.textContent = '✦';
+        cell.appendChild(star);
+      }
+
+      grid.appendChild(cell);
+    }
+  }
+
+  function changeMonth(dir) {
+    currentDate.setMonth(currentDate.getMonth() + dir);
+    renderCalendar();
+  }
+
+  function openModal(event) {
+    document.getElementById('modal-date').textContent = event.day + ' ' + MONTHS[event.month] + ' ' + event.year;
+    document.getElementById('modal-name').textContent = event.name;
+    document.getElementById('modal-desc').textContent = event.desc;
+    const btn = document.getElementById('modal-btn');
+    if (event.link) {
+      btn.href = event.link;
+      btn.style.display = 'inline-block';
+    } else {
+      btn.style.display = 'none';
+    }
+    document.getElementById('event-modal-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal(e) {
+    if (!e || e.target === document.getElementById('event-modal-overlay') || e.type === 'click') {
+      document.getElementById('event-modal-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  renderCalendar();
+
+</script>
+  </div>
+  <a href="https://www.instagram.com/su____studio/" target="_blank" class="instagram-link">Open Instagram →</a>
+  <a href="https://chat.whatsapp.com/G66YaFCjoucAirbOjjYtZv" target="_blank" class="community-btn">Join our community →</a>
+</section>
+
+
+
+<!-- CALENDAR -->
+<section class="calendar-section fade-in" id="calendar">
+  <div class="calendar-header">
+    <h2 class="calendar-month-title" id="cal-month-title">July 2025</h2>
+    <div class="calendar-nav">
+      <button class="cal-nav-btn" onclick="changeMonth(-1)">←</button>
+      <button class="cal-nav-btn" onclick="changeMonth(1)">→</button>
+    </div>
+  </div>
+  <div class="calendar-grid" id="calendar-grid"></div>
+</section>
+
+<!-- EVENT MODAL -->
+<div class="event-modal-overlay" id="event-modal-overlay" onclick="closeModal(event)">
+  <div class="event-modal">
+    <button class="event-modal-close" onclick="closeModal()">×</button>
+    <p class="event-modal-date" id="modal-date"></p>
+    <h2 class="event-modal-name" id="modal-name"></h2>
+    <p class="event-modal-desc" id="modal-desc"></p>
+    <a href="#" class="event-modal-btn" id="modal-btn" target="_blank">Get tickets →</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <img src="img_1.png" class="logo-footer" alt="Su Studio">
+      <p>HaMifal 1, Tel Aviv<br>House of Art & Experiences<br><br>Su.Studio.tlv@gmail.com</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Navigate</p>
+      <a href="#events">Upcoming Events</a>
+      <a href="#artist">Artist of the Month</a>
+      <a href="https://www.instagram.com/su____studio/" target="_blank">Su Studio ↗</a>
+      <a href="https://www.instagram.com/su.elsewhere/" target="_blank">Su Elsewhere ↗</a>
+    </div>
+    <div>
+      <p class="footer-col-title">Get in touch</p>
+      <a href="mailto:Su.Studio.tlv@gmail.com">Su.Studio.tlv@gmail.com</a>
+      <a href="https://wa.me/972XXXXXXXXX" target="_blank">WhatsApp</a>
+      <a href="#ideas">Share an idea</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Su Studio</span>
+    <span>Tel Aviv</span>
+  </div>
+</footer>
+
+<!-- FLOATING TALK -->
+<button class="talk-btn" onclick="toggleTalk()">Talk to us</button>
+<div class="talk-popup" id="talk-popup">
+  <p class="talk-popup-title">Get in touch</p>
+  <a href="https://wa.me/972XXXXXXXXX" target="_blank" class="talk-option">
+    <span class="talk-option-icon">💬</span> WhatsApp
+  </a>
+  <a href="mailto:Su.Studio.tlv@gmail.com" class="talk-option">
+    <span class="talk-option-icon">✉️</span> Su.Studio.tlv@gmail.com
+  </a>
+  <a href="https://www.instagram.com/su____studio/" target="_blank" class="talk-option">
+    <span class="talk-option-icon">📸</span> Instagram
+  </a>
+  <div class="community-sep">
+    <p class="community-label">Join the community</p>
+    <a href="#" class="talk-option">
+      <span class="talk-option-icon">📧</span> Mailing list
+    </a>
+    <a href="https://chat.whatsapp.com/G66YaFCjoucAirbOjjYtZv" target="_blank" class="talk-option">
+      <span class="talk-option-icon">👥</span> WhatsApp group
+    </a>
+  </div>
+</div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+
+
+  // Language switcher
+  const translations = {
+    en: {
+      'nav-events': 'Events',
+      'nav-artist': 'Artist',
+      'nav-instagram': 'Instagram',
+      'nav-ideas': 'Ideas',
+      'hero-label': 'House of Art & Experiences',
+      'hero-sub': 'We curate moments. Of all kinds.',
+      'hero-cta': "See what's coming",
+      'what-label': 'What we do',
+      'events-title': "What's coming",
+      'events-all': 'All events →',
+      'artist-label': 'Artist of the month',
+      'artist-name': 'The walls<br>have something<br>to say.',
+      'ig-label': 'Follow along',
+      'ig-title': 'The ongoing scene',
+      'ig-btn': 'Open Instagram →',
+      'community-btn': 'Join our community →',
+      'talk-btn': 'Talk to us',
+      'scroll-txt': 'Scroll',
+    },
+    he: {
+      'nav-events': 'אירועים',
+      'nav-artist': 'אמן',
+      'nav-instagram': 'אינסטגרם',
+      'nav-ideas': 'רעיונות',
+      'hero-label': 'בית לאמנות וחוויות',
+      'hero-sub': 'אנחנו יוצרים רגעים. מכל הסוגים.',
+      'hero-cta': 'מה קורה קרוב',
+      'what-label': 'מה אנחנו עושים',
+      'events-title': 'מה מגיע',
+      'events-all': 'כל האירועים ←',
+      'artist-label': 'אמן החודש',
+      'artist-name': 'לקירות<br>יש<br>מה לומר.',
+      'ig-label': 'עקבו אחרינו',
+      'ig-title': 'הסצנה המתמשכת',
+      'ig-btn': '← פתחו אינסטגרם',
+      'community-btn': '← הצטרפו לקהילה שלנו',
+      'talk-btn': 'דברו איתנו',
+      'scroll-txt': 'גלול',
+    }
+  };
+
+  function setLang(lang) {
+    const t = translations[lang];
+    document.documentElement.dir = lang === 'he' ? 'rtl' : 'ltr';
+    document.documentElement.lang = lang;
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('lang-' + lang).classList.add('active');
+
+    // Update nav
+    const navLinks = document.querySelectorAll('.nav-links a');
+    if (navLinks[0]) navLinks[0].textContent = t['nav-events'];
+    if (navLinks[1]) navLinks[1].textContent = t['nav-artist'];
+    if (navLinks[2]) navLinks[2].textContent = t['nav-instagram'];
+    if (navLinks[3]) navLinks[3].textContent = t['nav-ideas'];
+
+    // Hero
+    const heroLabel = document.querySelector('.hero-label');
+    const heroSub = document.querySelector('.hero-sub');
+    const heroCta = document.querySelector('.hero-cta');
+    if (heroLabel) heroLabel.textContent = t['hero-label'];
+    if (heroSub) heroSub.textContent = t['hero-sub'];
+    if (heroCta) heroCta.textContent = t['hero-cta'];
+
+    // What label
+    const whatLabel = document.querySelector('.what .section-label');
+    if (whatLabel) whatLabel.textContent = t['what-label'];
+
+    // Events
+    const eventsTitle = document.querySelector('.events-title');
+    const eventsAll = document.querySelector('.events-all');
+    if (eventsTitle) eventsTitle.textContent = t['events-title'];
+    if (eventsAll) eventsAll.textContent = t['events-all'];
+
+    // Artist
+    const artistLabel = document.querySelector('.artist-label');
+    const artistName = document.querySelector('.artist-name');
+    if (artistLabel) artistLabel.textContent = t['artist-label'];
+    if (artistName) artistName.innerHTML = t['artist-name'];
+
+    // Instagram
+    const igLabel = document.querySelector('.instagram .section-label');
+    const igTitle = document.querySelector('.instagram-title');
+    const igBtn = document.querySelector('.instagram-link');
+    const communityBtn = document.querySelector('.community-btn');
+    if (igLabel) igLabel.textContent = t['ig-label'];
+    if (igTitle) igTitle.textContent = t['ig-title'];
+    if (igBtn) igBtn.textContent = t['ig-btn'];
+    if (communityBtn) communityBtn.textContent = t['community-btn'];
+
+    // Talk btn
+    const talkBtn = document.querySelector('.talk-btn');
+    if (talkBtn) talkBtn.textContent = t['talk-btn'];
+  }
+
+  // Parallax logo + text together
+  const parallaxGroup = document.getElementById('hero-parallax');
+  const heroBg = document.getElementById('hero-bg-img');
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    if (parallaxGroup) {
+      parallaxGroup.style.transform = `translateY(${scrollY * 0.65}px)`;
+    }
+    if (heroBg) {
+      heroBg.style.transform = `translateY(${scrollY * 0.15}px) scale(1.1)`;
+    }
+  });
+
+  // Fade in
+  const fadeEls = document.querySelectorAll('.fade-in');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  fadeEls.forEach(e => obs.observe(e));
+
+  // Talk popup
+  function toggleTalk() {
+    document.getElementById('talk-popup').classList.toggle('open');
+  }
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.talk-btn') && !e.target.closest('.talk-popup')) {
+      document.getElementById('talk-popup').classList.remove('open');
+    }
+  });
+
+  // Ideas machine
+  function submitIdea() {
+    const input = document.getElementById('idea-input');
+    const val = input.value.trim();
+    if (!val) return;
+
+    const booth = document.getElementById('booth-wrap');
+    const strip = document.getElementById('strip-out');
+    const thanks = document.getElementById('booth-thanks');
+
+    // Show idea on strip
+    strip.textContent = '"' + val + '"';
+
+    // Zoom into slot
+    booth.classList.add('zooming');
+
+    // After zoom in — show strip coming out
+    setTimeout(() => { strip.classList.add('show'); }, 600);
+
+    // After zoom out — show thank you
+    setTimeout(() => {
+      strip.classList.remove('show');
+      thanks.classList.add('show');
+    }, 1800);
+
+    // Reset
+    setTimeout(() => {
+      thanks.classList.remove('show');
+      booth.classList.remove('zooming');
+      input.value = '';
+    }, 4000);
+  }
+
+  document.getElementById('idea-input').addEventListener('keypress', e => {
+    if (e.key === 'Enter') submitIdea();
+  });
+
+});
+</script>
+
+
+</body>
+</html>
