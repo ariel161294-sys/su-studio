@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Su Studio — Contact</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root { --bordeaux: #6B1A1A; --cream: #F5F0E8; --teal: #3D6B6B; --black: #111; --offwhite: #FAFAF8; --grey: #888; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--offwhite); color: #111; min-height: 100vh; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 20px 40px; display: flex; justify-content: space-between; align-items: center;
+      background: rgba(250,250,248,0.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    nav img { height: 44px; }
+    nav a { color: #111; text-decoration: none; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+    nav a:hover { color: var(--bordeaux); }
+
+    .page {
+      min-height: 100vh;
+      padding: 140px 40px 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .page-label {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 16px;
+    }
+
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 300;
+      font-style: italic;
+      margin-bottom: 16px;
+      text-align: center;
+      line-height: 1.1;
+    }
+
+    .page-sub {
+      font-size: 15px;
+      color: var(--grey);
+      margin-bottom: 64px;
+      text-align: center;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 680px;
+      width: 100%;
+    }
+
+    .contact-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 32px;
+      background: white;
+      text-decoration: none;
+      color: #111;
+      border: 1px solid #e0dcd6;
+      transition: all 0.3s;
+      gap: 10px;
+      text-align: center;
+    }
+
+    .contact-card:hover {
+      border-color: var(--bordeaux);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+    }
+
+    .contact-card.no-link { cursor: default; }
+    .contact-card.no-link:hover { transform: none; border-color: #e0dcd6; box-shadow: none; }
+
+    .contact-icon { font-size: 28px; margin-bottom: 4px; }
+    .contact-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grey); }
+    .contact-value { font-size: 14px; color: #111; line-height: 1.5; }
+
+    .back-link {
+      margin-top: 48px;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--grey);
+      text-decoration: none;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: var(--bordeaux); border-color: var(--bordeaux); }
+
+    @media (max-width: 600px) {
+      nav { padding: 14px 20px; }
+      .page { padding: 120px 20px 60px; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/"><img src="logo_color.png" alt="Su Studio"></a>
+  <a href="/">← Back</a>
+</nav>
+
+<div class="page">
+  <p class="page-label">Su Studio</p>
+  <h1 class="page-title">Get in touch</h1>
+  <p class="page-sub">We'd love to hear from you.</p>
+
+  <div class="contact-grid">
+    <a href="mailto:Su.Studio.tlv@gmail.com" class="contact-card">
+      <span class="contact-icon">✉️</span>
+      <span class="contact-label">Email</span>
+      <span class="contact-value">Su.Studio.tlv@gmail.com</span>
+    </a>
+    <a href="https://wa.me/972526777813" target="_blank" class="contact-card">
+      <span class="contact-icon">💬</span>
+      <span class="contact-label">WhatsApp</span>
+      <span class="contact-value">+972 52 677 7813</span>
+    </a>
+    <a href="https://www.instagram.com/su____studio/" target="_blank" class="contact-card">
+      <span class="contact-icon">📸</span>
+      <span class="contact-label">Instagram</span>
+      <span class="contact-value">@su____studio</span>
+    </a>
+    <div class="contact-card no-link">
+      <span class="contact-icon">📍</span>
+      <span class="contact-label">Address</span>
+      <span class="contact-value">HaMifal 1<br>Tel Aviv</span>
+    </div>
+  </div>
+
+  <a href="/" class="back-link">← Back to Su Studio</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Su Studio — Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root { --bordeaux: #6B1A1A; --cream: #F5F0E8; --black: #111; --grey: #888; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'DM Sans', sans-serif; background: #fafaf8; color: #111; }
+
+    .login-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--black); }
+    .login-box { background: white; padding: 48px; width: 360px; text-align: center; }
+    .login-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-style: italic; margin-bottom: 8px; }
+    .login-sub { font-size: 13px; color: var(--grey); margin-bottom: 32px; }
+    .login-input { width: 100%; padding: 12px 16px; border: 1px solid #ddd; font-size: 14px; font-family: 'DM Sans', sans-serif; margin-bottom: 12px; outline: none; }
+    .login-input:focus { border-color: var(--bordeaux); }
+    .login-btn { width: 100%; padding: 13px; background: var(--bordeaux); color: white; border: none; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+    .login-error { color: #c00; font-size: 12px; margin-top: 8px; display: none; }
+
+    .admin-screen { display: none; }
+    .admin-nav { background: var(--black); padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .admin-nav-title { color: white; font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; }
+    .admin-nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .admin-nav-links button { background: none; border: none; color: rgba(255,255,255,0.6); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; font-family: 'DM Sans', sans-serif; padding: 6px 12px; transition: color 0.2s; }
+    .admin-nav-links button:hover, .admin-nav-links button.active { color: white; border-bottom: 1px solid var(--bordeaux); }
+
+    .admin-content { padding: 40px; max-width: 960px; margin: 0 auto; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; margin-bottom: 32px; padding-bottom: 16px; border-bottom: 1px solid #e0dcd6; }
+
+    .tab { display: none; }
+    .tab.active { display: block; }
+
+    /* EVENTS */
+    .event-row { display: grid; grid-template-columns: 70px 1fr 1fr auto; gap: 12px; align-items: center; padding: 16px 0; border-bottom: 1px solid #f0ece6; }
+    .event-row-date { font-size: 22px; color: var(--bordeaux); font-family: 'Cormorant Garamond', serif; line-height: 1; }
+    .event-row-name { font-size: 14px; font-style: italic; }
+    .event-row-link { font-size: 12px; color: var(--grey); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .btn-sm { background: none; border: 1px solid #ddd; padding: 5px 10px; font-size: 11px; cursor: pointer; color: #999; transition: all 0.2s; margin-left: 4px; }
+    .btn-sm:hover { border-color: #c00; color: #c00; }
+    .btn-sm.edit:hover { border-color: var(--bordeaux); color: var(--bordeaux); }
+
+    .form-group { margin-bottom: 20px; }
+    .form-label { display: block; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grey); margin-bottom: 8px; }
+    .form-input { width: 100%; padding: 11px 14px; border: 1px solid #ddd; font-size: 14px; font-family: 'DM Sans', sans-serif; outline: none; }
+    .form-input:focus { border-color: var(--bordeaux); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .text-area { width: 100%; padding: 12px 14px; border: 1px solid #ddd; font-size: 14px; font-family: 'DM Sans', sans-serif; outline: none; resize: vertical; min-height: 80px; }
+    .text-area:focus { border-color: var(--bordeaux); }
+    .btn-add { padding: 13px 28px; background: var(--bordeaux); color: white; border: none; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background 0.2s; }
+    .btn-add:hover { background: #8a2020; }
+    .btn-secondary { padding: 13px 28px; background: white; color: var(--bordeaux); border: 1px solid var(--bordeaux); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; margin-left: 8px; }
+    .btn-secondary:hover { background: var(--cream); }
+
+    /* IMAGES */
+    .image-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 32px; }
+    .image-card { border: 1px solid #e0dcd6; padding: 16px; background: white; }
+    .image-card-title { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey); margin-bottom: 10px; }
+    .image-preview { width: 100%; height: 130px; object-fit: cover; display: block; margin-bottom: 10px; background: #f0ece6; }
+    .image-preview-placeholder { width: 100%; height: 130px; background: #f0ece6; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #aaa; margin-bottom: 10px; }
+    .btn-upload { display: block; width: 100%; padding: 8px; border: 1px dashed #ccc; background: none; font-size: 11px; cursor: pointer; color: var(--grey); text-align: center; transition: all 0.2s; }
+    .btn-upload:hover { border-color: var(--bordeaux); color: var(--bordeaux); }
+    input[type="file"] { display: none; }
+
+    /* TEXTS */
+    .text-section { margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px solid #e0dcd6; }
+    .text-section-title { font-size: 14px; font-weight: 500; margin-bottom: 20px; }
+
+    .status-bar { position: fixed; bottom: 24px; right: 24px; padding: 12px 20px; background: var(--black); color: white; font-size: 13px; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999; }
+    .status-bar.show { opacity: 1; }
+    .status-bar.success { background: #2a7a2a; }
+    .status-bar.error { background: #8a0000; }
+
+    .divider { height: 1px; background: #e0dcd6; margin: 32px 0; }
+    .sub-title { font-size: 15px; font-weight: 500; margin-bottom: 20px; color: #444; }
+
+    @media(max-width:768px) {
+      .admin-content { padding: 20px; }
+      .form-row, .form-row-3 { grid-template-columns: 1fr; }
+      .image-grid { grid-template-columns: repeat(2, 1fr); }
+      .event-row { grid-template-columns: 50px 1fr auto; }
+      .event-row-link { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="login-screen" id="login-screen">
+  <div class="login-box">
+    <h1 class="login-title">Su Studio</h1>
+    <p class="login-sub">Admin Panel</p>
+    <input type="password" class="login-input" id="admin-password" placeholder="Password">
+    <input type="password" class="login-input" id="admin-token" placeholder="GitHub Token" onkeypress="if(event.key==='Enter')login()">
+    <button class="login-btn" onclick="login()">Enter</button>
+    <p class="login-error" id="login-error">Wrong password</p>
+  </div>
+</div>
+
+<div class="admin-screen" id="admin-screen">
+  <nav class="admin-nav">
+    <span class="admin-nav-title">Su Studio Admin</span>
+    <div class="admin-nav-links">
+      <button onclick="showTab('events')" id="tab-btn-events" class="active">Events</button>
+      <button onclick="showTab('images')" id="tab-btn-images">Images</button>
+      <button onclick="showTab('texts')" id="tab-btn-texts">Texts</button>
+    </div>
+  </nav>
+
+  <div class="admin-content">
+
+    <!-- EVENTS -->
+    <div class="tab active" id="tab-events">
+      <h2 class="section-title">Events Calendar</h2>
+      <div id="event-list" style="margin-bottom:32px;"></div>
+
+      <div class="divider"></div>
+      <p class="sub-title">Add New Event</p>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Event Name</label>
+          <input type="text" class="form-input" id="new-event-name" placeholder="Mishte — Su × Shaked">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Date (DD/MM/YYYY)</label>
+          <input type="text" class="form-input" id="new-event-date" placeholder="30/07/2026">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Short Description (shown in calendar popup)</label>
+        <textarea class="text-area" id="new-event-desc" placeholder="Short description for the popup..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Full Description (shown on event page)</label>
+        <textarea class="text-area" id="new-event-full-desc" placeholder="Full details about the event..."></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Ticket Link (optional)</label>
+          <input type="text" class="form-input" id="new-event-link" placeholder="https://...">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Price (optional)</label>
+          <input type="text" class="form-input" id="new-event-price" placeholder="150₪">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Event Image URL (optional)</label>
+        <input type="text" class="form-input" id="new-event-image" placeholder="https://... or leave empty">
+      </div>
+      <button class="btn-add" onclick="addEvent()">Add Event</button>
+    </div>
+
+    <!-- IMAGES -->
+    <div class="tab" id="tab-images">
+      <h2 class="section-title">Images</h2>
+      <div class="image-grid" id="image-grid">
+        <div class="image-card">
+          <p class="image-card-title">Hero Background</p>
+          <div class="image-preview-placeholder" id="preview-hero">Loading...</div>
+          <input type="file" id="file-hero" accept="image/*" onchange="uploadImage(this,'img_3.jpg','preview-hero')">
+          <button class="btn-upload" onclick="document.getElementById('file-hero').click()">Replace</button>
+        </div>
+        <div class="image-card">
+          <p class="image-card-title">Private Events</p>
+          <div class="image-preview-placeholder" id="preview-private">Loading...</div>
+          <input type="file" id="file-private" accept="image/*" onchange="uploadImage(this,'events-private.jpg','preview-private')">
+          <button class="btn-upload" onclick="document.getElementById('file-private').click()">Replace</button>
+        </div>
+        <div class="image-card">
+          <p class="image-card-title">Open Nights</p>
+          <div class="image-preview-placeholder" id="preview-open">Loading...</div>
+          <input type="file" id="file-open" accept="image/*" onchange="uploadImage(this,'events-open.jpg','preview-open')">
+          <button class="btn-upload" onclick="document.getElementById('file-open').click()">Replace</button>
+        </div>
+        <div class="image-card">
+          <p class="image-card-title">Photoshoots & Workshops</p>
+          <div class="image-preview-placeholder" id="preview-photo">Loading...</div>
+          <input type="file" id="file-photo" accept="image/*" onchange="uploadImage(this,'events-photo.jpg','preview-photo')">
+          <button class="btn-upload" onclick="document.getElementById('file-photo').click()">Replace</button>
+        </div>
+        <div class="image-card">
+          <p class="image-card-title">Productions & Elsewhere</p>
+          <div class="image-preview-placeholder" id="preview-productions">Loading...</div>
+          <input type="file" id="file-productions" accept="image/*" onchange="uploadImage(this,'events-productions.jpg','preview-productions')">
+          <button class="btn-upload" onclick="document.getElementById('file-productions').click()">Replace</button>
+        </div>
+        <div class="image-card">
+          <p class="image-card-title">Artist of the Month</p>
+          <div class="image-preview-placeholder" id="preview-artist">Loading...</div>
+          <input type="file" id="file-artist" accept="image/*" onchange="uploadImage(this,'artist-month.jpg','preview-artist')">
+          <button class="btn-upload" onclick="document.getElementById('file-artist').click()">Replace</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEXTS -->
+    <div class="tab" id="tab-texts">
+      <h2 class="section-title">Site Texts</h2>
+
+      <div class="text-section">
+        <p class="text-section-title">Hero Section</p>
+        <div class="form-group">
+          <label class="form-label">Tagline (under logo)</label>
+          <input type="text" class="form-input" id="text-hero-label" placeholder="House of Art & Experiences">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Sub-title</label>
+          <input type="text" class="form-input" id="text-hero-sub" placeholder="We curate moments. Of all kinds.">
+        </div>
+        <button class="btn-add" onclick="saveTexts('hero')">Save Hero Text</button>
+      </div>
+
+      <div class="text-section">
+        <p class="text-section-title">About Section</p>
+        <div class="form-group">
+          <label class="form-label">Main Title</label>
+          <input type="text" class="form-input" id="text-about-title" placeholder="A culture space somewhere between...">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea class="text-area" id="text-about-desc" placeholder="We host experiences..."></textarea>
+        </div>
+        <button class="btn-add" onclick="saveTexts('about')">Save About Text</button>
+      </div>
+
+      <div class="text-section">
+        <p class="text-section-title">Artist of the Month</p>
+        <div class="form-group">
+          <label class="form-label">Artist Name</label>
+          <input type="text" class="form-input" id="artist-name" placeholder="Artist name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Bio</label>
+          <textarea class="text-area" id="artist-bio" placeholder="Short artist bio..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Instagram Link</label>
+          <input type="text" class="form-input" id="artist-link" placeholder="https://instagram.com/...">
+        </div>
+        <button class="btn-add" onclick="saveArtist()">Save Artist</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="status-bar" id="status-bar"></div>
+
+<script>
+  const REPO = 'ariel161294-sys/su-studio';
+  const ADMIN_PASSWORD = 'sustudio2024';
+
+  let events = [
+    { id: 1, name: 'Mishte — Su × Shaked', date: '30/07/2026',
+      desc: 'לא ארוחת ערב רגילה. משתה של קיץ על טהרת גלם מקומי, דגים וכל מה שטוב.',
+      fullDesc: 'שקד ביטון יוצא מהשדה אל המטבח שלנו לבשל לכם בפעם הראשונה. ערב של גלם מקומי, דגים ויין טוב.',
+      link: 'https://sale-page.greeninvoice.co.il/88ka29', price: '', image: '' }
+  ];
+
+  function login() {
+    const pwd = document.getElementById('admin-password').value;
+    const token = document.getElementById('admin-token').value.trim();
+    if (pwd === ADMIN_PASSWORD && token) {
+      window.GITHUB_TOKEN = token;
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('admin-screen').style.display = 'block';
+      renderEvents();
+      loadImagePreviews();
+      loadTexts();
+    } else if (pwd !== ADMIN_PASSWORD) {
+      document.getElementById('login-error').textContent = 'Wrong password';
+      document.getElementById('login-error').style.display = 'block';
+    } else {
+      document.getElementById('login-error').textContent = 'Please enter GitHub token';
+      document.getElementById('login-error').style.display = 'block';
+    }
+  }
+
+  function showTab(tab) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.admin-nav-links button').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    document.getElementById('tab-btn-' + tab).classList.add('active');
+  }
+
+  function monthName(dateStr) {
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const parts = dateStr.split('/');
+    return months[parseInt(parts[1]) - 1] + ' ' + (parts[2] || '');
+  }
+
+  function renderEvents() {
+    const list = document.getElementById('event-list');
+    if (!events.length) { list.innerHTML = '<p style="color:#aaa;font-size:13px;padding:16px 0;">No events yet.</p>'; return; }
+    list.innerHTML = events.map(e => `
+      <div class="event-row">
+        <div class="event-row-date">${e.date.split('/')[0]}<br><span style="font-size:10px;color:#aaa;">${monthName(e.date)}</span></div>
+        <div class="event-row-name" style="font-style:italic">${e.name}</div>
+        <div class="event-row-link">${e.link || '—'}</div>
+        <div>
+          <button class="btn-sm edit" onclick="editEvent(${e.id})">Edit</button>
+          <button class="btn-sm" onclick="deleteEvent(${e.id})">Remove</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function editEvent(id) {
+    const e = events.find(ev => ev.id === id);
+    if (!e) return;
+    document.getElementById('new-event-name').value = e.name;
+    document.getElementById('new-event-date').value = e.date;
+    document.getElementById('new-event-desc').value = e.desc || '';
+    document.getElementById('new-event-full-desc').value = e.fullDesc || '';
+    document.getElementById('new-event-link').value = e.link || '';
+    document.getElementById('new-event-price').value = e.price || '';
+    document.getElementById('new-event-image').value = e.image || '';
+    deleteEvent(id);
+    document.getElementById('new-event-name').scrollIntoView({behavior:'smooth'});
+  }
+
+  function addEvent() {
+    const name = document.getElementById('new-event-name').value.trim();
+    const date = document.getElementById('new-event-date').value.trim();
+    const desc = document.getElementById('new-event-desc').value.trim();
+    const fullDesc = document.getElementById('new-event-full-desc').value.trim();
+    const link = document.getElementById('new-event-link').value.trim();
+    const price = document.getElementById('new-event-price').value.trim();
+    const image = document.getElementById('new-event-image').value.trim();
+    if (!name || !date) { showStatus('Please fill name and date', 'error'); return; }
+    events.push({ id: Date.now(), name, date, desc, fullDesc, link, price, image });
+    events.sort((a,b) => {
+      const [da,ma,ya] = a.date.split('/').map(Number);
+      const [db,mb,yb] = b.date.split('/').map(Number);
+      return new Date(ya,ma-1,da) - new Date(yb,mb-1,db);
+    });
+    renderEvents();
+    ['name','date','desc','full-desc','link','price','image'].forEach(f => {
+      const el = document.getElementById('new-event-' + f);
+      if (el) el.value = '';
+    });
+    saveEventsToGitHub();
+  }
+
+  function deleteEvent(id) {
+    events = events.filter(e => e.id !== id);
+    renderEvents();
+    saveEventsToGitHub();
+  }
+
+  async function saveEventsToGitHub() {
+    showStatus('Saving...', '');
+    try {
+      let sha = null;
+      try {
+        const r = await fetch(`https://api.github.com/repos/${REPO}/contents/events.json`, { headers: { Authorization: `token ${window.GITHUB_TOKEN}` } });
+        if (r.ok) { const d = await r.json(); sha = d.sha; }
+      } catch(e) {}
+      const content = btoa(unescape(encodeURIComponent(JSON.stringify(events, null, 2))));
+      const res = await fetch(`https://api.github.com/repos/${REPO}/contents/events.json`, {
+        method: 'PUT',
+        headers: { Authorization: `token ${window.GITHUB_TOKEN}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: 'Update events', content, ...(sha ? { sha } : {}) })
+      });
+      if (res.ok) showStatus('Saved! ✓', 'success');
+      else showStatus('Error saving', 'error');
+    } catch(e) { showStatus('Error: ' + e.message, 'error'); }
+  }
+
+  async function uploadImage(input, filename, previewId) {
+    const file = input.files[0];
+    if (!file) return;
+    showStatus('Uploading...', '');
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const el = document.getElementById(previewId);
+      if (el) el.outerHTML = `<img class="image-preview" id="${previewId}" src="${e.target.result}">`;
+      try {
+        let sha = null;
+        try {
+          const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${filename}`, { headers: { Authorization: `token ${window.GITHUB_TOKEN}` } });
+          if (r.ok) { const d = await r.json(); sha = d.sha; }
+        } catch(err) {}
+        const base64 = e.target.result.split(',')[1];
+        const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${filename}`, {
+          method: 'PUT',
+          headers: { Authorization: `token ${window.GITHUB_TOKEN}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: `Update ${filename}`, content: base64, ...(sha ? { sha } : {}) })
+        });
+        if (res.ok) showStatus('Uploaded! ✓', 'success');
+        else showStatus('Upload failed', 'error');
+      } catch(err) { showStatus('Error: ' + err.message, 'error'); }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function loadImagePreviews() {
+    [['img_3.jpg','preview-hero'],['events-private.jpg','preview-private'],['events-open.jpg','preview-open'],
+     ['events-photo.jpg','preview-photo'],['events-productions.jpg','preview-productions'],['artist-month.jpg','preview-artist']]
+    .forEach(([f, id]) => {
+      const url = `https://raw.githubusercontent.com/${REPO}/main/${f}?t=${Date.now()}`;
+      const el = document.getElementById(id);
+      if (el) el.outerHTML = `<img class="image-preview" id="${id}" src="${url}" onerror="this.outerHTML='<div class=image-preview-placeholder id=${id}>No image yet</div>'">`;
+    });
+  }
+
+  async function saveTexts(section) {
+    showStatus('Saving...', '');
+    let data = {};
+    if (section === 'hero') {
+      data = { label: document.getElementById('text-hero-label').value, sub: document.getElementById('text-hero-sub').value };
+    } else if (section === 'about') {
+      data = { title: document.getElementById('text-about-title').value, desc: document.getElementById('text-about-desc').value };
+    }
+    await saveJsonToGitHub(`texts-${section}.json`, data);
+  }
+
+  async function saveArtist() {
+    const data = {
+      name: document.getElementById('artist-name').value,
+      bio: document.getElementById('artist-bio').value,
+      link: document.getElementById('artist-link').value
+    };
+    if (!data.name) { showStatus('Please add artist name', 'error'); return; }
+    await saveJsonToGitHub('artist.json', data);
+  }
+
+  async function saveJsonToGitHub(filename, data) {
+    try {
+      let sha = null;
+      try {
+        const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${filename}`, { headers: { Authorization: `token ${window.GITHUB_TOKEN}` } });
+        if (r.ok) { const d = await r.json(); sha = d.sha; }
+      } catch(e) {}
+      const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+      const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${filename}`, {
+        method: 'PUT',
+        headers: { Authorization: `token ${window.GITHUB_TOKEN}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: `Update ${filename}`, content, ...(sha ? { sha } : {}) })
+      });
+      if (res.ok) showStatus('Saved! ✓', 'success');
+      else showStatus('Error saving', 'error');
+    } catch(e) { showStatus('Error: ' + e.message, 'error'); }
+  }
+
+  async function loadTexts() {
+    try {
+      const r = await fetch(`https://raw.githubusercontent.com/${REPO}/main/texts-hero.json?t=${Date.now()}`);
+      if (r.ok) {
+        const d = await r.json();
+        if (d.label) document.getElementById('text-hero-label').value = d.label;
+        if (d.sub) document.getElementById('text-hero-sub').value = d.sub;
+      }
+    } catch(e) {}
+    try {
+      const r = await fetch(`https://raw.githubusercontent.com/${REPO}/main/texts-about.json?t=${Date.now()}`);
+      if (r.ok) {
+        const d = await r.json();
+        if (d.title) document.getElementById('text-about-title').value = d.title;
+        if (d.desc) document.getElementById('text-about-desc').value = d.desc;
+      }
+    } catch(e) {}
+    try {
+      const r = await fetch(`https://raw.githubusercontent.com/${REPO}/main/artist.json?t=${Date.now()}`);
+      if (r.ok) {
+        const d = await r.json();
+        if (d.name) document.getElementById('artist-name').value = d.name;
+        if (d.bio) document.getElementById('artist-bio').value = d.bio;
+        if (d.link) document.getElementById('artist-link').value = d.link;
+      }
+    } catch(e) {}
+    try {
+      const r = await fetch(`https://raw.githubusercontent.com/${REPO}/main/events.json?t=${Date.now()}`);
+      if (r.ok) { events = await r.json(); renderEvents(); }
+    } catch(e) {}
+  }
+
+  function showStatus(msg, type) {
+    const bar = document.getElementById('status-bar');
+    bar.textContent = msg;
+    bar.className = 'status-bar show ' + type;
+    setTimeout(() => bar.classList.remove('show'), 3000);
+  }
+</script>
+</body>
+</html>

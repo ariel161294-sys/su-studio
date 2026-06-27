@@ -909,6 +909,84 @@
     [dir="rtl"] .events-header { flex-direction: row-reverse; }
     [dir="rtl"] .footer-top { direction: rtl; }
 
+
+    /* CONTACT */
+    .contact-section {
+      padding: 100px 40px;
+      background: var(--cream);
+    }
+
+    .contact-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .contact-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 300;
+      font-style: italic;
+      margin-bottom: 12px;
+    }
+
+    .contact-sub {
+      font-size: 15px;
+      color: var(--grey);
+      margin-bottom: 48px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .contact-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 24px;
+      background: white;
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid #e0dcd6;
+      transition: all 0.3s;
+      gap: 8px;
+    }
+
+    .contact-card:hover {
+      border-color: var(--bordeaux);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    .contact-card.no-link { cursor: default; }
+    .contact-card.no-link:hover {
+      transform: none;
+      border-color: #e0dcd6;
+      box-shadow: none;
+    }
+
+    .contact-icon { font-size: 24px; }
+
+    .contact-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--grey);
+    }
+
+    .contact-value {
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    @media (max-width: 768px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .contact-section { padding: 60px 20px; }
+    }
+
     /* FADE IN */
     .fade-in {
       opacity: 0;
@@ -1181,6 +1259,7 @@
     <li><a href="#artist">Artist</a></li>
     <li><a href="#instagram">Instagram</a></li>
     <li><a href="#ideas">Ideas</a></li>
+      <li><a href="/contact">Contact</a></li>
   </ul>
   <div class="lang-switcher">
     <button onclick="setLang('en')" class="lang-btn active" id="lang-en">EN</button>
@@ -1250,7 +1329,7 @@
 <section class="events fade-in" id="events">
   <div class="events-header">
     <h2 class="events-title">What's coming</h2>
-    <a href="#calendar" class="events-all">All events →</a>
+    <a href="#calendar" class="events-all" onclick="document.getElementById('calendar').scrollIntoView({behavior:'smooth'});return false;">All events →</a>
   </div>
 
   <a href="https://sale-page.greeninvoice.co.il/88ka29" class="event-item" target="_blank">
@@ -1482,6 +1561,36 @@
   </div>
 </div>
 
+<!-- CONTACT -->
+<section class="contact-section fade-in" id="contact">
+  <div class="contact-inner">
+    <h2 class="contact-title">Get in touch</h2>
+    <p class="contact-sub">We'd love to hear from you.</p>
+    <div class="contact-grid">
+      <a href="mailto:Su.Studio.tlv@gmail.com" class="contact-card">
+        <span class="contact-icon">✉️</span>
+        <span class="contact-label">Email</span>
+        <span class="contact-value">Su.Studio.tlv@gmail.com</span>
+      </a>
+      <a href="https://wa.me/972526777813" target="_blank" class="contact-card">
+        <span class="contact-icon">💬</span>
+        <span class="contact-label">WhatsApp</span>
+        <span class="contact-value">+972 52 677 7813</span>
+      </a>
+      <a href="https://www.instagram.com/su____studio/" target="_blank" class="contact-card">
+        <span class="contact-icon">📸</span>
+        <span class="contact-label">Instagram</span>
+        <span class="contact-value">@su____studio</span>
+      </a>
+      <div class="contact-card no-link">
+        <span class="contact-icon">📍</span>
+        <span class="contact-label">Address</span>
+        <span class="contact-value">HaMifal 1, Tel Aviv</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-top">
@@ -1504,7 +1613,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2025 Su Studio</span>
+    <span>© Su Studio</span>
     <span>Tel Aviv</span>
   </div>
 </footer>
@@ -1657,9 +1766,7 @@ document.addEventListener("DOMContentLoaded", function() {
   fadeEls.forEach(e => obs.observe(e));
 
   // Talk popup
-  function toggleTalk() {
-    document.getElementById('talk-popup').classList.toggle('open');
-  }
+  function toggleTalk() { window.location.href = '/contact'; }
   document.addEventListener('click', e => {
     if (!e.target.closest('.talk-btn') && !e.target.closest('.talk-popup')) {
       document.getElementById('talk-popup').classList.remove('open');
