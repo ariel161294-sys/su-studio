@@ -1329,7 +1329,7 @@
 <section class="events fade-in" id="events">
   <div class="events-header">
     <h2 class="events-title">What's coming</h2>
-    <a href="#calendar" class="events-all" onclick="document.getElementById('calendar').scrollIntoView({behavior:'smooth'});return false;">All events →</a>
+    <a href="#calendar" class="events-all">All events →</a>
   </div>
 
   <a href="https://sale-page.greeninvoice.co.il/88ka29" class="event-item" target="_blank">
@@ -1619,7 +1619,7 @@
 </footer>
 
 <!-- FLOATING TALK -->
-<button class="talk-btn" onclick="toggleTalk()">Talk to us</button>
+<a href="/contact" class="talk-btn" style="text-decoration:none;display:inline-block;">Talk to us</a>
 <div class="talk-popup" id="talk-popup">
   <p class="talk-popup-title">Get in touch</p>
   <a href="https://wa.me/972526777813" target="_blank" class="talk-option">
@@ -1779,31 +1779,18 @@ document.addEventListener("DOMContentLoaded", function() {
     const val = input.value.trim();
     if (!val) return;
 
-    const booth = document.getElementById('booth-wrap');
-    const strip = document.getElementById('strip-out');
     const thanks = document.getElementById('booth-thanks');
 
-    // Show idea on strip
-    strip.textContent = '"' + val + '"';
-
-    // Zoom into slot
-    booth.classList.add('zooming');
-
-    // After zoom in — show strip coming out
-    setTimeout(() => { strip.classList.add('show'); }, 600);
-
-    // After zoom out — show thank you
-    setTimeout(() => {
-      strip.classList.remove('show');
+    // Show thank you overlay
+    if (thanks) {
       thanks.classList.add('show');
-    }, 1800);
-
-    // Reset
-    setTimeout(() => {
-      thanks.classList.remove('show');
-      booth.classList.remove('zooming');
+      setTimeout(() => {
+        thanks.classList.remove('show');
+        input.value = '';
+      }, 3000);
+    } else {
       input.value = '';
-    }, 4000);
+    }
   }
 
   document.getElementById('idea-input').addEventListener('keypress', e => {
